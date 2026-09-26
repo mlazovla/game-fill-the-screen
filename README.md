@@ -30,11 +30,14 @@ src/
   index.css            globální styly (bez scrollu, pull-to-refresh, výběru textu…)
   app/                 shell aplikace: App, úvodní obrazovka, hlídač orientace
   platform/            práce se zařízením: gesta, fullscreen + zámek orientace, media query
-  game/                herní jádro sdílené levely: typy, LevelHost (HUD + „Level dokončen“),
-                       měření zaplnění plochy, hook pro celoobrazovkový canvas, uložení postupu
+  game/                herní jádro sdílené levely: typy, LevelHost (level + ladicí HUD),
+                       LevelTransition (přechod „LEVEL n“), měření zaplnění plochy,
+                       hook pro celoobrazovkový canvas, uložení postupu
   levels/
     index.ts           ⟵ POŘADÍ LEVELŮ (jediné místo, kde se mění)
-    finger-paint/      jeden level = jedna složka (definice + komponenta + styly + assety)
+    finger-paint/      1: kreslení prstem, dokud není zaplněno 98 %
+    pinch-circle/      2: kolečko (Ø ~2 cm) posouvat prstem a roztáhnout zoomem přes celý displej
+                       jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 
 ## Přidání levelu

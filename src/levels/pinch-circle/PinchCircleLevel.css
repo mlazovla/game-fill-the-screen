@@ -1,0 +1,16 @@
+.pinch-circle {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #000;
+  touch-action: none;
+}
+
+.pinch-circle__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: #fff;
+  will-change: transform;
+}
