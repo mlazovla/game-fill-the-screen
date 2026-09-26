@@ -3,6 +3,9 @@
 Mobilní hra jako PWA (React + TypeScript + Vite). Cíl každého levelu: vyplnit celou obrazovku
 jednou barvou, odlišnou od té, kterou level začíná.
 
+**Hrát:** https://fillthescreengame.mlazovaci.cz – otevři v mobilu a přes menu prohlížeče
+„Přidat na plochu“ / „Nainstalovat aplikaci“ ji nainstaluj jako PWA (pak běží i offline).
+
 ## Příkazy
 
 | Příkaz | Co dělá |
