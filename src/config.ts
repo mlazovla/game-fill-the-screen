@@ -1,0 +1,5 @@
+export const APP_NAME = 'Fill the Screen'
+export const APP_SHORT_NAME = 'Fill Screen'
+export const APP_DESCRIPTION = 'Vyplň celou obrazovku jednou barvou.'
+export const THEME_COLOR = '#000000'
+export const ORIENTATION: 'portrait' | 'landscape' = 'portrait'
