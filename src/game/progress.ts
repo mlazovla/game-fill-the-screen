@@ -1,17 +1,10 @@
+import { readStored, writeStored } from '../platform/storage'
 import type { LevelDefinition } from './types'
 
 const STORAGE_KEY = 'fill-the-screen.level'
 
-function readStoredLevel() {
-  try {
-    return localStorage.getItem(STORAGE_KEY)
-  } catch {
-    return null
-  }
-}
-
 export function initialLevelIndex(levels: LevelDefinition[]) {
-  const requested = new URLSearchParams(window.location.search).get('level') ?? readStoredLevel()
+  const requested = new URLSearchParams(window.location.search).get('level') ?? readStored(STORAGE_KEY)
   if (!requested) return 0
   if (/^\d+$/.test(requested)) {
     const index = Number(requested) - 1
@@ -21,9 +14,5 @@ export function initialLevelIndex(levels: LevelDefinition[]) {
 }
 
 export function rememberLevel(level: LevelDefinition) {
-  try {
-    localStorage.setItem(STORAGE_KEY, level.id)
-  } catch {
-    return
-  }
+  writeStored(STORAGE_KEY, level.id)
 }

@@ -12,3 +12,7 @@ export async function enterImmersiveMode() {
   const orientation = screen.orientation as LockableOrientation | undefined
   await orientation?.lock?.(ORIENTATION).catch(ignore)
 }
+
+export function enterImmersiveModeOnRelease() {
+  window.addEventListener('pointerup', () => void enterImmersiveMode(), { once: true })
+}

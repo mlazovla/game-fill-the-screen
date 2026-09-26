@@ -1,0 +1,31 @@
+.hold-button {
+  position: relative;
+  height: 52px;
+  padding: 0 28px;
+  border: var(--hold-border) solid rgb(255 255 255 / 0.3);
+  border-radius: 999px;
+  background: transparent;
+  color: rgb(255 255 255 / 0.8);
+  touch-action: none;
+}
+
+.hold-button__progress {
+  position: absolute;
+  top: calc(-1 * var(--hold-border));
+  left: calc(-1 * var(--hold-border));
+  overflow: visible;
+  pointer-events: none;
+}
+
+.hold-button__progress path {
+  fill: none;
+  stroke: #fff;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1.02;
+  transition: stroke-dashoffset 250ms ease-out;
+}
+
+.hold-button.is-holding .hold-button__progress path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset var(--hold-duration) linear;
+}

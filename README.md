@@ -40,7 +40,23 @@ src/
 2. Komponenta dostane `onProgress(ratio)` a `onComplete()` (viz `src/game/types.ts`).
 3. Přidej import do pole v `src/levels/index.ts` na požadované místo.
 
+Hra je o objevování, jak level překonat, proto se v levelech ve výchozím stavu nic neukazuje.
+Pro ladění lze na úvodní obrazovce zapnout **Zobrazit UI** (číslo a název levelu, procento zaplnění);
+volba se pamatuje v localStorage.
+
 Pro testování lze otevřít konkrétní level přes `?level=<id>` nebo `?level=<pořadí>`, např. `?level=finger-paint`.
+
+## Průběh hry
+
+Po dokončení levelu obrazovka zešedne (50% šedá), přes celou výšku se černě ukáže „LEVEL“ a přes něj
+bíle číslo dalšího levelu (`src/game/LevelTransition.tsx`). Klepnutím se přes šedou odkryje další level.
+Stav přechodu řídí `src/app/App.tsx`; starý level se odpojí, jakmile je šedá plně krycí, nový se připojí
+až po klepnutí.
+
+## Písmo
+
+Roboto Flex (variabilní, tloušťka až 1000) je přibalené v aplikaci kvůli offline režimu – jen latinka
+a latinka-ext (`src/fonts.css`). Globálně se nastavuje proměnnou `--font-game` v `src/index.css`.
 
 ## Chování na mobilu
 
