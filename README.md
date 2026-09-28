@@ -35,7 +35,7 @@ src/
                        hook pro celoobrazovkový canvas, uložení postupu
   levels/
     index.ts           ⟵ POŘADÍ LEVELŮ (jediné místo, kde se mění)
-    finger-paint/      1: kreslení prstem, dokud není zaplněno 98 %
+    finger-paint/      1: kreslení prstem, dokud není zaplněno 95 %
     pinch-circle/      2: kolečko (Ø ~2 cm) posouvat prstem a roztáhnout zoomem přes celý displej
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```

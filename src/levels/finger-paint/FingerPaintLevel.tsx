@@ -7,7 +7,7 @@ import './FingerPaintLevel.css'
 const START_COLOR = '#000000'
 const PAINT_COLOR = '#ffffff'
 const BRUSH_SIZE = 44
-const TARGET_FILL = 0.98
+const TARGET_FILL = 0.95
 const MEASURE_INTERVAL_MS = 120
 
 interface Point {
