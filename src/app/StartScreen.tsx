@@ -7,19 +7,23 @@ const RESTART_HOLD_MS = 3000
 interface StartScreenProps {
   levelNumber: number
   levelName: string
+  levelCount: number
   showUi: boolean
   onShowUiChange: (showUi: boolean) => void
   onContinue: () => void
   onRestart: () => void
+  onJumpToLevel: (index: number) => void
 }
 
 export function StartScreen({
   levelNumber,
   levelName,
+  levelCount,
   showUi,
   onShowUiChange,
   onContinue,
   onRestart,
+  onJumpToLevel,
 }: StartScreenProps) {
   return (
     <div className="start-screen">
@@ -35,10 +39,26 @@ export function StartScreen({
         Začít od začátku
       </HoldButton>
 
-      <label className="start-screen__option">
-        <input type="checkbox" checked={showUi} onChange={(event) => onShowUiChange(event.target.checked)} />
-        Zobrazit UI
-      </label>
+      <div className="start-screen__footer">
+        {showUi && (
+          <nav className="start-screen__levels" aria-label="Levely">
+            {Array.from({ length: levelCount }, (_, index) => (
+              <button
+                key={index}
+                type="button"
+                className={index + 1 === levelNumber ? 'is-current' : undefined}
+                onClick={() => onJumpToLevel(index)}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </nav>
+        )}
+        <label className="start-screen__option">
+          <input type="checkbox" checked={showUi} onChange={(event) => onShowUiChange(event.target.checked)} />
+          Zobrazit UI
+        </label>
+      </div>
     </div>
   )
 }

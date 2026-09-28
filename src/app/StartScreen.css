@@ -52,9 +52,43 @@
   margin-top: 40px;
 }
 
-.start-screen__option {
+.start-screen__footer {
   position: absolute;
   bottom: max(24px, env(safe-area-inset-bottom));
+  left: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.start-screen__levels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.start-screen__levels button {
+  min-width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  border: 2px solid rgb(255 255 255 / 0.3);
+  border-radius: 12px;
+  background: transparent;
+  font-size: 18px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.start-screen__levels button.is-current {
+  border-color: #fff;
+  background: #fff;
+  color: #000;
+}
+
+.start-screen__option {
   display: flex;
   align-items: center;
   gap: 10px;

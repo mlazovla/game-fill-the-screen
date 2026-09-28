@@ -47,8 +47,8 @@ src/
 3. Přidej import do pole v `src/levels/index.ts` na požadované místo.
 
 Hra je o objevování, jak level překonat, proto se v levelech ve výchozím stavu nic neukazuje.
-Pro ladění lze na úvodní obrazovce zapnout **Zobrazit UI** (číslo a název levelu, procento zaplnění);
-volba se pamatuje v localStorage.
+Pro ladění lze na úvodní obrazovce zapnout **Zobrazit UI** (číslo a název levelu, procento zaplnění
+a seznam čísel levelů pro přímý skok do levelu); volba se pamatuje v localStorage.
 
 Pro testování lze otevřít konkrétní level přes `?level=<id>` nebo `?level=<pořadí>`, např. `?level=finger-paint`.
 
@@ -56,6 +56,8 @@ Pro testování lze otevřít konkrétní level přes `?level=<id>` nebo `?level
 
 Po dokončení levelu obrazovka zešedne (50% šedá), přes celou výšku se černě ukáže „LEVEL“ a přes něj
 bíle číslo dalšího levelu (`src/game/LevelTransition.tsx`). Klepnutím se přes šedou odkryje další level.
+Po posledním levelu se místo toho ukáže „A to je vše“ a klepnutí vrátí hráče na úvodní obrazovku
+(postup se vrátí na level 1).
 Stav přechodu řídí `src/app/App.tsx`; starý level se odpojí, jakmile je šedá plně krycí, nový se připojí
 až po klepnutí.
 
@@ -66,6 +68,9 @@ a latinka-ext (`src/fonts.css`). Globálně se nastavuje proměnnou `--font-game
 
 ## Chování na mobilu
 
+- Tlačítko zpět je během hry zachycené (`platform/useBackButton.ts`): vpravo nahoře se na 2 s ukáže
+  kolečko s křížkem (`app/QuitButton.tsx`), které vrátí hru na úvodní obrazovku. Strážní záznam v historii
+  se kvůli ochraně Chrome obnovuje jen při interakci – dvojí zpět bez dotyku mezi tím hru opustí.
 - Pull-to-refresh, scroll, pinch-zoom, dlouhý stisk a dvojklik jsou zablokované (`index.css`, `platform/gestures.ts`).
 - Orientace: manifest vynucuje `portrait` pro nainstalovanou PWA, na Androidu se po klepnutí na start
   zapne fullscreen a zamkne orientace. Kde zámek nejde (iOS), překryje hru výzva k otočení telefonu.

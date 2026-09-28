@@ -5,7 +5,7 @@ export type TransitionPhase = 'covering' | 'title' | 'waiting' | 'revealing'
 
 interface LevelTransitionProps {
   phase: TransitionPhase
-  levelNumber: number
+  levelNumber: number | null
   onCovered: () => void
   onTitleShown: () => void
   onContinue: () => void
@@ -39,14 +39,20 @@ export function LevelTransition({
             if (ownAnimation(event) && phase === 'title') onTitleShown()
           }}
         >
-          <div className="level-transition__word">
-            <svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true">
-              <text x="0" y="100" fontSize="140" textLength="300" lengthAdjust="spacingAndGlyphs">
-                LEVEL
-              </text>
-            </svg>
-          </div>
-          <div className="level-transition__number">{levelNumber}</div>
+          {levelNumber === null ? (
+            <div className="level-transition__end">A to je vše</div>
+          ) : (
+            <>
+              <div className="level-transition__word">
+                <svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true">
+                  <text x="0" y="100" fontSize="140" textLength="300" lengthAdjust="spacingAndGlyphs">
+                    LEVEL
+                  </text>
+                </svg>
+              </div>
+              <div className="level-transition__number">{levelNumber}</div>
+            </>
+          )}
         </div>
       )}
     </div>
