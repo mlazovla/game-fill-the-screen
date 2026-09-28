@@ -1,0 +1,13 @@
+.six-stripes {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+  touch-action: none;
+}
+
+.six-stripes__stripe {
+  flex: 1;
+  background: #000;
+}

@@ -37,6 +37,10 @@ src/
     index.ts           ⟵ POŘADÍ LEVELŮ (jediné místo, kde se mění)
     finger-paint/      1: kreslení prstem, dokud není zaplněno 95 %
     pinch-circle/      2: kolečko (Ø ~2 cm) posouvat prstem a roztáhnout zoomem přes celý displej
+    six-stripes/       3: 6 neviditelných proužků; klepnutí zbělí proužek na 0,3 s, pak 1 s bledne.
+                       Bílý zůstane, jen když má bílé sousedy (okraj se počítá jako bílý) –
+                       vyhraje rychlé proklepání všech 6 najednou; každý proužek hraje tón piána
+                       (C dur pentatonika, dole C4 → nahoře C5)
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 
@@ -60,6 +64,11 @@ Po posledním levelu se místo toho ukáže „A to je vše“ a klepnutí vrát
 (postup se vrátí na level 1).
 Stav přechodu řídí `src/app/App.tsx`; starý level se odpojí, jakmile je šedá plně krycí, nový se připojí
 až po klepnutí.
+
+## Zvuk
+
+Zvuky se syntetizují přes Web Audio (žádné nahrávky, funguje offline). Sdílený výstup s kompresorem je
+v `src/platform/audio.ts`, syntéza tónu piána v `src/game/piano.ts` (`playPianoNote(frekvence)`).
 
 ## Písmo
 
