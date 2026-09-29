@@ -1,5 +1,6 @@
 import { APP_NAME } from '../config'
 import { HoldButton } from './HoldButton'
+import { SoundToggle } from './SoundToggle'
 import './StartScreen.css'
 
 const RESTART_HOLD_MS = 3000
@@ -10,6 +11,8 @@ interface StartScreenProps {
   levelCount: number
   showUi: boolean
   onShowUiChange: (showUi: boolean) => void
+  soundOn: boolean
+  onSoundChange: (soundOn: boolean) => void
   onContinue: () => void
   onRestart: () => void
   onJumpToLevel: (index: number) => void
@@ -21,6 +24,8 @@ export function StartScreen({
   levelCount,
   showUi,
   onShowUiChange,
+  soundOn,
+  onSoundChange,
   onContinue,
   onRestart,
   onJumpToLevel,
@@ -28,6 +33,7 @@ export function StartScreen({
   return (
     <div className="start-screen">
       <h1>{APP_NAME}</h1>
+      <SoundToggle soundOn={soundOn} onChange={onSoundChange} />
 
       <button type="button" className="start-screen__continue" onClick={onContinue}>
         <span className="start-screen__continue-label">Pokračovat</span>

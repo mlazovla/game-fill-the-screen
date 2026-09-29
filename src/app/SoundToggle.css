@@ -1,0 +1,46 @@
+.sound-toggle {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+}
+
+.sound-toggle svg {
+  width: 30px;
+  height: 30px;
+  overflow: visible;
+}
+
+.sound-toggle__speaker {
+  fill: currentColor;
+}
+
+.sound-toggle__waves {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: square;
+}
+
+.sound-toggle.is-muted {
+  color: rgb(255 255 255 / 0.55);
+}
+
+.sound-toggle__strike-gap {
+  stroke: #000;
+  stroke-width: 7;
+}
+
+.sound-toggle__strike {
+  stroke: #fff;
+  stroke-width: 2.6;
+  stroke-linecap: square;
+}

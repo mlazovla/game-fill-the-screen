@@ -2,7 +2,8 @@ import { ORIENTATION } from '../config'
 import { useMediaQuery } from '../platform/useMediaQuery'
 import './OrientationGuard.css'
 
-const WRONG_ORIENTATION = ORIENTATION === 'portrait' ? 'landscape' : 'portrait'
+const IS_PORTRAIT = ORIENTATION.startsWith('portrait')
+const WRONG_ORIENTATION = IS_PORTRAIT ? 'landscape' : 'portrait'
 
 export function OrientationGuard() {
   const isWrong = useMediaQuery(`(pointer: coarse) and (orientation: ${WRONG_ORIENTATION})`)
@@ -11,7 +12,7 @@ export function OrientationGuard() {
   return (
     <div className="orientation-guard">
       <div className="orientation-guard__phone" />
-      <p>Otoč telefon {ORIENTATION === 'portrait' ? 'na výšku' : 'na šířku'}</p>
+      <p>Otoč telefon {IS_PORTRAIT ? 'na výšku' : 'na šířku'}</p>
     </div>
   )
 }

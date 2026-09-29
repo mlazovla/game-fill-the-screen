@@ -9,4 +9,6 @@ export interface LevelDefinition {
   id: string
   name: string
   component: ComponentType<LevelProps>
+  usesMotion?: boolean
+  usesAudio?: boolean
 }

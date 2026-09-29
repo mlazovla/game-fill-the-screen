@@ -9,3 +9,13 @@ export function loadShowUi() {
 export function saveShowUi(showUi: boolean) {
   writeStored(SHOW_UI_KEY, showUi ? '1' : '0')
 }
+
+const SOUND_ON_KEY = 'fill-the-screen.soundOn'
+
+export function loadSoundOn() {
+  return readStored(SOUND_ON_KEY) !== '0'
+}
+
+export function saveSoundOn(soundOn: boolean) {
+  writeStored(SOUND_ON_KEY, soundOn ? '1' : '0')
+}

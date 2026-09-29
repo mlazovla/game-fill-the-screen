@@ -41,6 +41,11 @@ src/
                        Bílý zůstane, jen když má bílé sousedy (okraj se počítá jako bílý) –
                        vyhraje rychlé proklepání všech 6 najednou; každý proužek hraje tón piána
                        (C dur pentatonika, dole C4 → nahoře C5)
+    rain-vessel/       4: displej je nádoba otevřená dole (bílý okraj vlevo, vpravo, nahoře), prší na něj
+                       kapky stékající podle gravitace ze senzoru; vzhůru nohama se nádoba plní,
+                       při otočení zpět se vylije. Kapka se při dopadu roztříští (drobné šedé
+                       kapičky), zní šumění deště a dopady kapek. Moduly: liquid.ts (geometrie
+                       hladiny), simulation.ts (kapky, kapalina), render.ts (Canvas 2D), sound.ts
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 
@@ -65,10 +70,24 @@ Po posledním levelu se místo toho ukáže „A to je vše“ a klepnutí vrát
 Stav přechodu řídí `src/app/App.tsx`; starý level se odpojí, jakmile je šedá plně krycí, nový se připojí
 až po klepnutí.
 
+## Senzory
+
+`src/platform/deviceGravity.ts` převádí `deviceorientation` (beta, gamma) na směr gravitace v souřadnicích
+obrazovky (x doprava, y dolů, z ven z displeje). Level, který senzory potřebuje, má v definici
+`usesMotion: true` – na iOS se pak o povolení žádá při klepnutí, které level spouští. Na počítači jde
+level ladit přes DevTools → Sensors → Orientation. Orientace je zamčená na `portrait-primary`, aby se
+obrazovka při otočení telefonu vzhůru nohama neotočila.
+
 ## Zvuk
 
 Zvuky se syntetizují přes Web Audio (žádné nahrávky, funguje offline). Sdílený výstup s kompresorem je
 v `src/platform/audio.ts`, syntéza tónu piána v `src/game/piano.ts` (`playPianoNote(frekvence)`).
+Levely se zvukem mají v definici `usesAudio: true`, aby se zvuk odemkl už klepnutím, které level spouští
+(iOS); ostatní levely zvuk nezapínají, aby zbytečně nepřerušily hudbu přehrávanou v telefonu. Když je
+aplikace na pozadí, zvuk se pozastaví.
+Ikonou reproduktoru na úvodní obrazovce jde zvuk vypnout (`app/SoundToggle.tsx`, volba se pamatuje);
+vypnutý zvuk znamená, že se audio výstup vůbec nevytvoří (`setSoundMuted` v `platform/audio.ts`).
+Pokud bude někdy level zvuk potřebovat k vyřešení, naznačí to sám level.
 
 ## Písmo
 
