@@ -13,13 +13,9 @@ jednou barvou, odlišnou od té, kterou level začíná.
 | `npm run dev` | Dev server s HTTPS (self-signed) dostupný i v LAN – otevři `https://<ip-macu>:5173` na telefonu a potvrď varování certifikátu. HTTPS je nutné kvůli senzorům, mikrofonu a kameře. |
 | `npm run build` | Produkční build do `dist/` včetně service workeru (offline) a manifestu. |
 | `npm run preview` | Lokální náhled produkčního buildu. |
-| `npm run deploy` | Build + rsync na Raspberry Pi → https://fillthescreengame.mlazovaci.cz |
+| `npm run deploy` | Build + nahrání na server; cíl se bere z lokálního `.deploy.local` (není v repozitáři). |
 | `npm run icons` | Přegeneruje PNG ikony v `public/`. |
 | `npm run lint` | oxlint. |
-
-Deploy jde přes `vml@192.168.0.242` (SSH funguje jen z LAN) do
-`/var/www/mlazovaci.cz/sites/fillthescreengame/www`, který nginx na Pi obsluhuje přes wildcard
-`*.mlazovaci.cz`. Cíl lze přepsat proměnnými `DEPLOY_HOST`, `DEPLOY_PATH`.
 
 ## Struktura
 

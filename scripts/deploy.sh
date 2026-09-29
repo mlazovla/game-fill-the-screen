@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DEPLOY_HOST="${DEPLOY_HOST:-vml@192.168.0.242}"
-DEPLOY_PATH="${DEPLOY_PATH:-/var/www/mlazovaci.cz/sites/fillthescreengame/www}"
-PUBLIC_URL="${PUBLIC_URL:-https://fillthescreengame.mlazovaci.cz}"
-
 cd "$(dirname "$0")/.."
+
+if [[ -f .deploy.local ]]; then
+  set -a
+  source .deploy.local
+  set +a
+fi
+
+: "${DEPLOY_HOST:?Nastav DEPLOY_HOST (např. v .deploy.local)}"
+: "${DEPLOY_PATH:?Nastav DEPLOY_PATH (např. v .deploy.local)}"
 
 npm run build
 ssh "$DEPLOY_HOST" "mkdir -p '$DEPLOY_PATH'"
 rsync -az --delete dist/ "$DEPLOY_HOST:$DEPLOY_PATH/"
 
-echo "Nasazeno: $PUBLIC_URL"
+echo "Nasazeno${PUBLIC_URL:+: $PUBLIC_URL}"
