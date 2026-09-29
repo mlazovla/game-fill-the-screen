@@ -10,13 +10,19 @@ type PermissionRequestable = { requestPermission?: () => Promise<string> }
 
 const DEG = Math.PI / 180
 
-export function requestMotionPermission(): Promise<boolean> {
-  const api = globalThis.DeviceOrientationEvent as unknown as PermissionRequestable | undefined
-  if (typeof api?.requestPermission !== 'function') return Promise.resolve(true)
-  return api.requestPermission().then(
+function requestFrom(api: unknown): Promise<boolean> {
+  const requestable = api as PermissionRequestable | undefined
+  if (typeof requestable?.requestPermission !== 'function') return Promise.resolve(true)
+  return requestable.requestPermission().then(
     (state) => state === 'granted',
     () => false,
   )
+}
+
+export function requestMotionPermission(): Promise<boolean> {
+  const orientation = requestFrom(globalThis.DeviceOrientationEvent)
+  const motion = requestFrom(globalThis.DeviceMotionEvent)
+  return Promise.all([orientation, motion]).then((results) => results.some(Boolean))
 }
 
 function screenAngle() {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { LevelHost } from '../game/LevelHost'
 import { LevelTransition, type TransitionPhase } from '../game/LevelTransition'
 import { initialLevelIndex, rememberLevel } from '../game/progress'
@@ -9,20 +9,26 @@ import { enterImmersiveMode, enterImmersiveModeOnRelease } from '../platform/scr
 import { armBackGuard, useBackButton } from '../platform/useBackButton'
 import { OrientationGuard } from './OrientationGuard'
 import { QUIT_BUTTON_VISIBLE_MS, QuitButton } from './QuitButton'
-import { loadShowUi, loadSoundOn, saveShowUi, saveSoundOn } from './settings'
+import { loadIntroSeen, loadShowUi, loadSoundOn, saveIntroSeen, saveShowUi, saveSoundOn } from './settings'
 import { StartScreen } from './StartScreen'
 
-type Phase = 'start' | 'playing' | TransitionPhase
+const Intro = lazy(() => import('../intro/Intro'))
+
+type Phase = 'intro' | 'start' | 'playing' | TransitionPhase
+
+const shouldPlayIntro = () => !loadIntroSeen() && !new URLSearchParams(window.location.search).has('level')
 
 export default function App() {
-  const [phase, setPhase] = useState<Phase>('start')
+  const [phase, setPhase] = useState<Phase>(() => (shouldPlayIntro() ? 'intro' : 'start'))
   const [levelIndex, setLevelIndex] = useState(() => initialLevelIndex(levels))
   const [showUi, setShowUi] = useState(loadShowUi)
   const [soundOn, setSoundOn] = useState(loadSoundOn)
   const [finished, setFinished] = useState(false)
+  const [leavingIntro, setLeavingIntro] = useState(false)
   const [quitShownAt, setQuitShownAt] = useState<number | null>(null)
   const level = levels[levelIndex]
-  const levelMounted = !finished && (phase === 'playing' || phase === 'covering' || phase === 'revealing')
+  const introMounted = phase === 'intro' || leavingIntro
+  const levelMounted = !finished && !leavingIntro && (phase === 'playing' || phase === 'covering' || phase === 'revealing')
   const startScreenMounted = phase === 'start' || (finished && phase === 'revealing')
 
   useEffect(() => rememberLevel(level), [level])
@@ -66,9 +72,25 @@ export default function App() {
     setPhase('playing')
   }
 
+  const replayIntro = () => {
+    armBackGuard()
+    setPhase('intro')
+  }
+
+  const finishIntro = () => {
+    saveIntroSeen()
+    setLeavingIntro(true)
+    setPhase('covering')
+  }
+
   const completeLevel = () => setPhase((current) => (current === 'playing' ? 'covering' : current))
 
   const showNextTitle = () => {
+    if (leavingIntro) {
+      setLeavingIntro(false)
+      setPhase('title')
+      return
+    }
     setFinished(levelIndex === levels.length - 1)
     setLevelIndex((index) => (index + 1) % levels.length)
     setPhase('title')
@@ -77,6 +99,7 @@ export default function App() {
   const goHome = () => {
     setQuitShownAt(null)
     setFinished(false)
+    setLeavingIntro(false)
     setPhase('start')
   }
 
@@ -99,7 +122,13 @@ export default function App() {
           onContinue={start}
           onRestart={restartFromBeginning}
           onJumpToLevel={jumpToLevel}
+          onReplayIntro={replayIntro}
         />
+      )}
+      {introMounted && (
+        <Suspense fallback={null}>
+          <Intro onDone={finishIntro} />
+        </Suspense>
       )}
       {levelMounted && (
         <LevelHost
@@ -111,7 +140,7 @@ export default function App() {
           onComplete={completeLevel}
         />
       )}
-      {phase !== 'start' && phase !== 'playing' && (
+      {phase !== 'start' && phase !== 'playing' && phase !== 'intro' && (
         <LevelTransition
           phase={phase}
           levelNumber={finished ? null : levelIndex + 1}

@@ -19,3 +19,13 @@ export function loadSoundOn() {
 export function saveSoundOn(soundOn: boolean) {
   writeStored(SOUND_ON_KEY, soundOn ? '1' : '0')
 }
+
+const INTRO_SEEN_KEY = 'fill-the-screen.introSeen'
+
+export function loadIntroSeen() {
+  return readStored(INTRO_SEEN_KEY) === '1'
+}
+
+export function saveIntroSeen() {
+  writeStored(INTRO_SEEN_KEY, '1')
+}

@@ -25,7 +25,9 @@ src/
   main.tsx             vstup: registrace service workeru, blokace gest prohlížeče
   index.css            globální styly (bez scrollu, pull-to-refresh, výběru textu…)
   app/                 shell aplikace: App, úvodní obrazovka, hlídač orientace
-  platform/            práce se zařízením: gesta, fullscreen + zámek orientace, media query
+  intro/               intro při prvním spuštění (viz níže), načítá se líně
+  platform/            práce se zařízením: gesta, fullscreen + zámek orientace, media query,
+                       senzory (náklon, třesení), mikrofon a kamera
   game/                herní jádro sdílené levely: typy, LevelHost (level + ladicí HUD),
                        LevelTransition (přechod „LEVEL n“), měření zaplnění plochy,
                        hook pro celoobrazovkový canvas, uložení postupu
@@ -60,6 +62,29 @@ Pro ladění lze na úvodní obrazovce zapnout **Zobrazit UI** (číslo a název
 a seznam čísel levelů pro přímý skok do levelu); volba se pamatuje v localStorage.
 
 Pro testování lze otevřít konkrétní level přes `?level=<id>` nebo `?level=<pořadí>`, např. `?level=finger-paint`.
+
+## Intro
+
+Při prvním spuštění (a bez `?level=`) se místo úvodní obrazovky ukáže intro (`src/intro/`). Každá jeho
+obrazovka je sama malé „vyplň obrazovku“ a zároveň si předem řekne o oprávnění, aby dotaz na mikrofon
+neprozradil řešení konkrétního levelu:
+
+1. „Vítej ve hře“ – swipe nahoru vytáhne zespoda bílou plochu.
+2. „Cílem je vždy vyplnit celou obrazovku“ – Pokračovat.
+3. Senzory – po povolení se zatřesením sypou bílé kameny (`stoneHeap.ts`: hromada jako výšková mapa bez
+   mezer; kámen se do hromady boří jako do bahna a zastaví se, až pod jeho masivní částí není nic černého).
+   Čím silnější třesení, tím víc a větších kamenů. Po pěti kamenech zmizí text, při 97 % obrazovka dobělí.
+   Skip vpravo nahoře dosype obrazovku sám.
+4. Mikrofon a kamera – jeden dotaz na obojí. Hlasitost nad šumem okolí plní obrazovku zespoda
+   (`loudnessFill.ts`: práh se kalibruje na okolí, běžná řeč stačí). Po 10 % zmizí text a na pozadí se
+   ukáže mikrofon. Mikrofon se hned po testu zavře.
+5. Obraz – černobílá přední kamera (bez kamery Mona Lisa, volné dílo z Wikimedia Commons), ztmavená.
+   Ovládání jako Snapseed: dotyk ukáže menu Kontrast / Gama / Jas (Jas pomůže nejvíc, proto je poslední), tah nahoru/dolů vybírá, doleva/doprava
+   mění hodnotu (WebGL shader v `pictureRenderer.ts`, výpočet v `pictureAdjust.ts`). Když je průměrný jas
+   přes 90 %, obrazovka zbělá a Pokračovat vede rovnou na přechod „LEVEL“.
+
+Že bylo intro dokončené, se pamatuje v localStorage. Znovu ho jde spustit tlačítkem **Přehrát intro**
+na úvodní obrazovce se zapnutým **Zobrazit UI**. Levely si oprávnění i tak ověřují samy (iOS se ptá znovu).
 
 ## Průběh hry
 

@@ -16,6 +16,7 @@ interface StartScreenProps {
   onContinue: () => void
   onRestart: () => void
   onJumpToLevel: (index: number) => void
+  onReplayIntro: () => void
 }
 
 export function StartScreen({
@@ -29,6 +30,7 @@ export function StartScreen({
   onContinue,
   onRestart,
   onJumpToLevel,
+  onReplayIntro,
 }: StartScreenProps) {
   return (
     <div className="start-screen">
@@ -59,6 +61,11 @@ export function StartScreen({
               </button>
             ))}
           </nav>
+        )}
+        {showUi && (
+          <button type="button" className="start-screen__intro" onClick={onReplayIntro}>
+            Přehrát intro
+          </button>
         )}
         <label className="start-screen__option">
           <input type="checkbox" checked={showUi} onChange={(event) => onShowUiChange(event.target.checked)} />
