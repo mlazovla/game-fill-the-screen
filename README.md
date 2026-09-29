@@ -42,6 +42,10 @@ src/
                        při otočení zpět se vylije. Kapka se při dopadu roztříští (drobné šedé
                        kapičky), zní šumění deště a dopady kapek. Moduly: liquid.ts (geometrie
                        hladiny), simulation.ts (kapky, kapalina), render.ts (Canvas 2D), sound.ts
+    endless-snake/     5: nekonečný had ve 4 sloupcích (okraj ≥ 5 mm), krok 350 ms, ovládání swipem
+                       (fronta tahů; proti směru = pozdržení o 1 krok). Náraz → had od hlavy
+                       zmizí a po 1 s se level restartuje; bez interakce had nahoře počká.
+                       Vyhraje zaplnění všech polí. Logika v snake.ts, šipky pro ladění na PC
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 
