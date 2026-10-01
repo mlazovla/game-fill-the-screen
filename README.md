@@ -57,6 +57,10 @@ src/
                        Ve fázi 3 stačí 1 s foukání a přestat – plamen zaplní obrazovku. Pravidla
                        v fire.ts, detekce foukání v blowDetector.ts, kresba v render.ts. Bez mikrofonu
                        se ukáže přeškrtnutý mikrofon, klepnutí zkusí povolení znovu
+    jigsaw/            7: šest bílých puclíků (mřížka 2×3 přes celý displej) leží na sobě uprostřed
+                       v náhodném pořadí; tahem se posouvají (i víc prsty naráz), po puštění do 1,5 mm
+                       od kterékoli pozice zapadnou (krátká vibrace) a lehnou pod volné kusy.
+                       Vyhrává složení všech na správná místa. Tvar zámků v puzzle.ts
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 
