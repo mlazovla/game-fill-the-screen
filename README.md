@@ -61,6 +61,9 @@ src/
                        v náhodném pořadí; tahem se posouvají (i víc prsty naráz), po puštění do 1,5 mm
                        od kterékoli pozice zapadnou (krátká vibrace) a lehnou pod volné kusy.
                        Vyhrává složení všech na správná místa. Tvar zámků v puzzle.ts
+    patience/          8: uprostřed roste bílý kruh (plocha lineárně, za 30 s pokryje celý displej); každý dotyk
+                       ho vrátí na nulu a dokud prst drží, neroste. Vyhraje, kdo nic nedělá. Displej drží
+                       rozsvícený Wake Lock (`keepScreenOn` v platform/screen.ts), čas na pozadí se nepočítá
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 

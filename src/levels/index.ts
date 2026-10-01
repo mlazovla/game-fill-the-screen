@@ -3,6 +3,7 @@ import emberBlow from './ember-blow'
 import endlessSnake from './endless-snake'
 import fingerPaint from './finger-paint'
 import jigsaw from './jigsaw'
+import patience from './patience'
 import pinchCircle from './pinch-circle'
 import rainVessel from './rain-vessel'
 import sixStripes from './six-stripes'
@@ -15,4 +16,5 @@ export const levels: LevelDefinition[] = [
   endlessSnake,
   emberBlow,
   jigsaw,
+  patience,
 ]
