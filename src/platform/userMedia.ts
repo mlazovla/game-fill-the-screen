@@ -30,6 +30,10 @@ export async function requestMediaAccess(): Promise<MediaAccess> {
   return { microphone, camera: video !== null }
 }
 
+export function openMicrophone() {
+  return getMedia({ audio: AUDIO })
+}
+
 export function openFrontCamera() {
   return getMedia({ video: VIDEO })
 }

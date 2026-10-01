@@ -4,6 +4,7 @@ import { LevelTransition, type TransitionPhase } from '../game/LevelTransition'
 import { initialLevelIndex, rememberLevel } from '../game/progress'
 import { levels } from '../levels'
 import { getAudioOutput, setSoundMuted } from '../platform/audio'
+import { prepareMicrophoneContext } from '../platform/microphone'
 import { requestMotionPermission } from '../platform/deviceGravity'
 import { enterImmersiveMode, enterImmersiveModeOnRelease } from '../platform/screen'
 import { armBackGuard, useBackButton } from '../platform/useBackButton'
@@ -49,6 +50,7 @@ export default function App() {
   const prepareLevel = (index: number) => {
     if (levels[index].usesMotion) void requestMotionPermission()
     if (levels[index].usesAudio) getAudioOutput()
+    if (levels[index].usesMicrophone) prepareMicrophoneContext()
   }
 
   const start = () => {

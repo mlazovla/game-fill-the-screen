@@ -48,6 +48,15 @@ src/
                        (fronta tahů; proti směru = pozdržení o 1 krok). Náraz → had od hlavy
                        zmizí a po 1 s se level restartuje; bez interakce had nahoře počká.
                        Vyhraje zaplnění všech polí. Logika v snake.ts, šipky pro ladění na PC
+    ember-blow/        6: hromádka popraskaných uhlíků ve 3 řadách (prostřední zůstává tmavá, spodní začíná
+                       pod okrajem obrazovky) a nad ní
+                       hranice z třísek (jedna vede přes uhlíky, jedna za ně); foukání do mikrofonu (jakýkoli silný
+                       zvuk nad šumem okolí) je rozžhavuje ve 3 fázích: uhlíky → třísky → plamen.
+                       Fáze 1 a 2 chtějí celkem 6 s foukání (lze na víc nádechů): po < 3 s rychle
+                       pohasnou, po ≥ 3 s drží 5 s a pak 3 s slábnou, foukání během slábnutí navazuje.
+                       Ve fázi 3 stačí 1 s foukání a přestat – plamen zaplní obrazovku. Pravidla
+                       v fire.ts, detekce foukání v blowDetector.ts, kresba v render.ts. Bez mikrofonu
+                       se ukáže přeškrtnutý mikrofon, klepnutí zkusí povolení znovu
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 
@@ -113,6 +122,13 @@ aplikace na pozadí, zvuk se pozastaví.
 Ikonou reproduktoru na úvodní obrazovce jde zvuk vypnout (`app/SoundToggle.tsx`, volba se pamatuje);
 vypnutý zvuk znamená, že se audio výstup vůbec nevytvoří (`setSoundMuted` v `platform/audio.ts`).
 Pokud bude někdy level zvuk potřebovat k vyřešení, naznačí to sám level.
+
+## Mikrofon
+
+Level s `usesMicrophone: true` odemkne klepnutím, které ho spouští, sdílený AudioContext pro analýzu
+(`platform/microphone.ts`, iOS) a mikrofon si pak otevře sám (`openMicrophone`). Hlasitost se měří jako
+RMS v dB, šum okolí kalibruje `game/noiseFloor.ts` (ignoruje digitální ticho na začátku, během foukání
+práh nestoupá).
 
 ## Písmo
 

@@ -1,4 +1,5 @@
 import type { LevelDefinition } from '../game/types'
+import emberBlow from './ember-blow'
 import endlessSnake from './endless-snake'
 import fingerPaint from './finger-paint'
 import pinchCircle from './pinch-circle'
@@ -11,4 +12,5 @@ export const levels: LevelDefinition[] = [
   sixStripes,
   rainVessel,
   endlessSnake,
+  emberBlow,
 ]

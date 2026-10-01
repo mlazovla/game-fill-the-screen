@@ -1,0 +1,19 @@
+.ember-blow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.ember-blow__muted {
+  position: absolute;
+  top: max(64px, calc(env(safe-area-inset-top) + 48px));
+  left: 50%;
+  width: 56px;
+  height: 56px;
+  margin-left: -28px;
+  color: #555;
+  pointer-events: none;
+}

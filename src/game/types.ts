@@ -11,4 +11,5 @@ export interface LevelDefinition {
   component: ComponentType<LevelProps>
   usesMotion?: boolean
   usesAudio?: boolean
+  usesMicrophone?: boolean
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { createLevelMeter, type LevelMeter } from '../platform/microphone'
+import { createLevelMeter, prepareMicrophoneContext, type LevelMeter } from '../platform/microphone'
 import { requestMediaAccess, stopStream } from '../platform/userMedia'
 import { ContinueButton, MicIcon, SkipButton } from './IntroControls'
 import { LoudnessFill } from './loudnessFill'
@@ -70,16 +70,14 @@ export function MediaStep({ onContinue }: { onContinue: (camera: boolean) => voi
 
   const allow = () => {
     setAccess('asking')
-    const context = new AudioContext()
-    void context.resume()
+    prepareMicrophoneContext()
     void requestMediaAccess().then((result) => {
       setCamera(result.camera)
       setAccess(result.microphone || result.camera ? 'granted' : 'denied')
       if (result.microphone && !skippingRef.current && !unmountedRef.current) {
-        setMeter(createLevelMeter(context, result.microphone))
+        setMeter(createLevelMeter(result.microphone))
       } else {
         stopStream(result.microphone)
-        void context.close()
       }
     })
   }

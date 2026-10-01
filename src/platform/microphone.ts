@@ -5,13 +5,29 @@ export interface LevelMeter {
   close: () => void
 }
 
-export function createLevelMeter(context: AudioContext, stream: MediaStream): LevelMeter {
+let analysisContext: AudioContext | null = null
+
+export function prepareMicrophoneContext() {
+  try {
+    analysisContext ??= new AudioContext()
+  } catch {
+    return null
+  }
+  if (analysisContext.state === 'suspended') void analysisContext.resume()
+  return analysisContext
+}
+
+export function createLevelMeter(stream: MediaStream): LevelMeter | null {
+  const context = prepareMicrophoneContext()
+  if (!context) {
+    stopStream(stream)
+    return null
+  }
   const source = context.createMediaStreamSource(stream)
   const analyser = context.createAnalyser()
   analyser.fftSize = 1024
   source.connect(analyser)
   const samples = new Float32Array(analyser.fftSize)
-  if (context.state === 'suspended') void context.resume()
   let closed = false
 
   return {
@@ -26,7 +42,6 @@ export function createLevelMeter(context: AudioContext, stream: MediaStream): Le
       closed = true
       source.disconnect()
       stopStream(stream)
-      void context.close()
     },
   }
 }
