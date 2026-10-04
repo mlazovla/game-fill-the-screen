@@ -1,8 +1,12 @@
-import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { vibrate } from '../platform/haptics'
 import './HoldButton.css'
 
 const BORDER_WIDTH = 2
 const STROKE_WIDTH = 3
+const FIRST_TICK_MS = 300
+const MIN_TICK_INTERVAL_MS = 40
+const TICK_MS = 20
 
 function pillPath(width: number, height: number) {
   const inset = STROKE_WIDTH / 2
@@ -40,6 +44,23 @@ export function HoldButton({ durationMs, onConfirm, children }: HoldButtonProps)
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    if (!holding) return
+    const startedAt = performance.now()
+    let timeout = 0
+    const tick = () => {
+      vibrate(TICK_MS)
+      const remaining = 1 - (performance.now() - startedAt) / durationMs
+      if (remaining <= 0) return
+      timeout = window.setTimeout(tick, Math.max(MIN_TICK_INTERVAL_MS, FIRST_TICK_MS * remaining))
+    }
+    timeout = window.setTimeout(tick, FIRST_TICK_MS)
+    return () => {
+      clearTimeout(timeout)
+      vibrate(0)
+    }
+  }, [holding, durationMs])
+
   const release = () => setHolding(false)
 
   return (
@@ -56,6 +77,7 @@ export function HoldButton({ durationMs, onConfirm, children }: HoldButtonProps)
       onPointerUp={release}
       onPointerCancel={release}
       onLostPointerCapture={release}
+      onContextMenu={(event) => event.preventDefault()}
       onTransitionEnd={(event) => {
         if (!holding || event.propertyName !== 'stroke-dashoffset') return
         setHolding(false)
