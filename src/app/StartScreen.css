@@ -25,25 +25,15 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  padding: 24px 32px;
-  border: 0;
-  background: transparent;
-  color: #fff;
-}
-
-.start-screen__continue-label {
-  font-size: 56px;
-  font-weight: 1000;
-  line-height: 1;
 }
 
 .start-screen__continue-level {
-  font-size: 20px;
+  font-size: 18px;
   opacity: 0.6;
 }
 
 .start-screen__hint {
-  margin: -8px 0 0;
+  margin: 0;
   font-size: 14px;
   opacity: 0.5;
 }

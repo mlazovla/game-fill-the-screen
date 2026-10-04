@@ -37,8 +37,8 @@ export function StartScreen({
       <h1>{APP_NAME}</h1>
       <SoundToggle soundOn={soundOn} onChange={onSoundChange} />
 
-      <button type="button" className="start-screen__continue" onClick={onContinue}>
-        <span className="start-screen__continue-label">Pokračovat</span>
+      <button type="button" className="primary-button start-screen__continue" onClick={onContinue}>
+        <span>Pokračovat</span>
         <span className="start-screen__continue-level">level {levelNumber}</span>
       </button>
       {showUi && <p className="start-screen__hint">{levelName}</p>}

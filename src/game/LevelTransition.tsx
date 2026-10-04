@@ -42,16 +42,13 @@ export function LevelTransition({
           {levelNumber === null ? (
             <div className="level-transition__end">A to je vše</div>
           ) : (
-            <>
-              <div className="level-transition__word">
-                <svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true">
-                  <text x="0" y="100" fontSize="140" textLength="300" lengthAdjust="spacingAndGlyphs">
-                    LEVEL
-                  </text>
-                </svg>
-              </div>
+            <div className="level-transition__level">
+              <div className="level-transition__word">level</div>
               <div className="level-transition__number">{levelNumber}</div>
-            </>
+              <button type="button" className="primary-button level-transition__enter">
+                Vstoupit
+              </button>
+            </div>
           )}
         </div>
       )}

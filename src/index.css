@@ -38,3 +38,20 @@ button {
   color: inherit;
   cursor: pointer;
 }
+
+.primary-button {
+  min-width: 240px;
+  padding: 16px 44px;
+  border: 3px solid #fff;
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  font-size: 36px;
+  font-weight: 1000;
+  line-height: 1;
+  transition: transform 120ms ease-out;
+}
+
+.primary-button:active {
+  transform: scale(0.96);
+}
