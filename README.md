@@ -64,6 +64,15 @@ src/
     patience/          8: uprostřed roste bílý kruh (plocha lineárně, za 30 s pokryje celý displej); každý dotyk
                        ho vrátí na nulu a dokud prst drží, neroste. Vyhraje, kdo nic nedělá. Displej drží
                        rozsvícený Wake Lock (`keepScreenOn` v platform/screen.ts), čas na pozadí se nepočítá
+    sphere-puzzle/     9: telefon je uvnitř černé koule s tmavě šedými tečkami po rovnoběžkách, uprostřed kříž.
+                       Skládačka 4 dílků (puzzle.ts): kolečko uprostřed a tři dílky kolem. Kolečko se objeví
+                       18° vedle středu, ostatní dílky těsně za okrajem pohledu (vlevo/vpravo) a natočené
+                       (dílek 2 o 10–20°, 3 a 4 o 20–40°). Volný dílek je světle šedý; když pohled 0,5 s sedí
+                       v toleranci směru (1,5°) a natočení (±8°, u kolečka se nehlídá), dílek zbělá, přilepí
+                       se k displeji (vibrace) a kříž zmizí. Složené dílky vyplní displej. Zorné pole 50° na
+                       šířku. Ovládání natáčením telefonu (gyroskop); bez gyroskopu tah prstem a otočení
+                       dvěma prsty, na PC šipky a Q/E. Tečky do 48 px od okraje dílků slábnou (efekt záře).
+                       Matematika pohledu ve view.ts, ovládání prstem v touchLook.ts, kresba v render.ts
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 
@@ -118,6 +127,9 @@ obrazovky (x doprava, y dolů, z ven z displeje). Level, který senzory potřebu
 `usesMotion: true` – na iOS se pak o povolení žádá při klepnutí, které level spouští. Na počítači jde
 level ladit přes DevTools → Sensors → Orientation. Orientace je zamčená na `portrait-primary`, aby se
 obrazovka při otočení telefonu vzhůru nohama neotočila.
+
+Plnou orientaci včetně otáčení kolem svislé osy (`alpha`) dává `platform/deviceRotation.ts`. Data pošle jen
+tehdy, když `devicemotion` hlásí `rotationRate`, tedy když má telefon gyroskop; jinak se level ovládá prstem.
 
 ## Zvuk
 
