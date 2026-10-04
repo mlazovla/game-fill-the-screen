@@ -1,7 +1,7 @@
 import { useEffect, useEffectEvent, useRef, useState, type PointerEvent } from 'react'
 import { openFrontCamera, stopStream } from '../platform/userMedia'
 import monaLisaUrl from './assets/mona-lisa.jpg'
-import { ContinueButton } from './IntroControls'
+import { ContinueButton, SkipButton } from './IntroControls'
 import {
   ADJUSTMENT_LABELS,
   ADJUSTMENT_LIMIT,
@@ -18,6 +18,7 @@ const MEASURE_INTERVAL_MS = 150
 const GESTURE_MIN_PX = 12
 const MENU_ITEM_PX = 44
 const RANGE_PER_WIDTH = 150
+const SKIP_BRIGHTNESS_PER_S = 80
 
 interface PictureSource {
   element: HTMLVideoElement | HTMLImageElement
@@ -52,9 +53,11 @@ export function PictureStep({ camera, onContinue }: { camera: boolean; onContinu
   const [selected, setSelected] = useState<AdjustmentKey>(ADJUSTMENT_LABELS[0][0])
   const [gestureMode, setGestureMode] = useState<Gesture['mode'] | null>(null)
   const [done, setDone] = useState(false)
+  const [skipping, setSkipping] = useState(false)
 
   const currentTransfer = useEffectEvent(() => transferOf(adjustments))
   const finish = useEffectEvent(() => setDone(true))
+  const currentBrightness = useEffectEvent(() => adjustments.brightness)
 
   useEffect(() => {
     const video = videoRef.current
@@ -132,8 +135,30 @@ export function PictureStep({ camera, onContinue }: { camera: boolean; onContinu
     return () => cancelAnimationFrame(frame)
   }, [])
 
+  useEffect(() => {
+    if (!skipping || done) return
+    const startValue = currentBrightness()
+    const startedAt = performance.now()
+    let frame = 0
+    const loop = (now: number) => {
+      const brightness = Math.min(ADJUSTMENT_LIMIT, Math.round(startValue + ((now - startedAt) / 1000) * SKIP_BRIGHTNESS_PER_S))
+      setAdjustments((current) => ({ ...current, brightness }))
+      if (brightness >= ADJUSTMENT_LIMIT) return finish()
+      frame = requestAnimationFrame(loop)
+    }
+    frame = requestAnimationFrame(loop)
+    return () => cancelAnimationFrame(frame)
+  }, [skipping, done])
+
+  const skip = () => {
+    gestureRef.current = null
+    setGestureMode(null)
+    setSelected('brightness')
+    setSkipping(true)
+  }
+
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    if (done || gestureRef.current) return
+    if (done || skipping || gestureRef.current) return
     event.currentTarget.setPointerCapture(event.pointerId)
     gestureRef.current = {
       pointerId: event.pointerId,
@@ -148,7 +173,7 @@ export function PictureStep({ camera, onContinue }: { camera: boolean; onContinu
 
   const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const gesture = gestureRef.current
-    if (!gesture || gesture.pointerId !== event.pointerId || done) return
+    if (!gesture || gesture.pointerId !== event.pointerId || done || skipping) return
     const dx = event.clientX - gesture.x
     const dy = event.clientY - gesture.y
     if (gesture.mode === 'pending') {
@@ -201,6 +226,7 @@ export function PictureStep({ camera, onContinue }: { camera: boolean; onContinu
           ))}
         </ul>
       )}
+      {!skipping && !done && <SkipButton onClick={skip} />}
       {done && (
         <div className="intro-picture__white">
           <ContinueButton onClick={onContinue} />

@@ -4,7 +4,13 @@ interface ButtonProps {
 
 export function SkipButton({ onClick }: ButtonProps) {
   return (
-    <button type="button" className="intro-skip" aria-label="Přeskočit" onClick={onClick}>
+    <button
+      type="button"
+      className="intro-skip"
+      aria-label="Přeskočit"
+      onPointerDown={(event) => event.stopPropagation()}
+      onClick={onClick}
+    >
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M5 6 11 12 5 18M12 6 18 12 12 18" />
       </svg>
