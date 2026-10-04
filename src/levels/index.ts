@@ -7,6 +7,7 @@ import patience from './patience'
 import pinchCircle from './pinch-circle'
 import rainVessel from './rain-vessel'
 import sixStripes from './six-stripes'
+import sizePulse from './size-pulse'
 import spherePuzzle from './sphere-puzzle'
 
 export const levels: LevelDefinition[] = [
@@ -19,4 +20,5 @@ export const levels: LevelDefinition[] = [
   jigsaw,
   patience,
   spherePuzzle,
+  sizePulse,
 ]

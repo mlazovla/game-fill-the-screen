@@ -73,6 +73,14 @@ src/
                        šířku. Ovládání natáčením telefonu (gyroskop); bez gyroskopu tah prstem a otočení
                        dvěma prsty, na PC šipky a Q/E. Tečky do 48 px od okraje dílků slábnou (efekt záře).
                        Matematika pohledu ve view.ts, ovládání prstem v touchLook.ts, kresba v render.ts
+    size-pulse/        10: malé bílé kolečko (R = 32 px) pulzuje po sinusoidě s periodou 2 s (0,5 s roste, 1 s se
+                       zmenšuje, 1 s roste…), násobně: poloměr = R·e^(k·sin). Dokud se hráč dotýká obrazovky,
+                       velikost stojí, ale sinus běží dál – držením prstu při zmenšování kolečko roste. k je
+                       spočítané z velikosti displeje tak, aby při perfektním načasování stačilo 6 vln růstu
+                       (s 3% rezervou); kolečko nejde zmenšit pod R/2. Vyhrává pokrytí celého displeje.
+                       Při držení prstu přímo na kolečku hraje tichý sinusový tón, jehož výška sleduje skrytou
+                       sinusoidu (±4 půltóny) a se zvětšováním kolečka stoupá (sound.ts). `touchstart` na ploše
+                       levelu je zablokovaný, aby dlouhý stisk nespustil haptiku prohlížeče
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 

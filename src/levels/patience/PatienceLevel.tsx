@@ -1,23 +1,11 @@
 import { useEffect, useEffectEvent, useRef } from 'react'
+import { centeredCircleCoverage } from '../../game/circleCoverage'
 import type { LevelProps } from '../../game/types'
 import { keepScreenOn } from '../../platform/screen'
 import './PatienceLevel.css'
 
 const FILL_SECONDS = 30
 const MAX_FRAME_S = 0.1
-const PROGRESS_GRID = 32
-
-function coverage(radius: number, width: number, height: number) {
-  let inside = 0
-  for (let i = 0; i < PROGRESS_GRID; i++) {
-    for (let j = 0; j < PROGRESS_GRID; j++) {
-      const x = (i / (PROGRESS_GRID - 1) - 0.5) * width
-      const y = (j / (PROGRESS_GRID - 1) - 0.5) * height
-      if (Math.hypot(x, y) <= radius) inside++
-    }
-  }
-  return inside / PROGRESS_GRID ** 2
-}
 
 export default function PatienceLevel({ onProgress, onComplete }: LevelProps) {
   const areaRef = useRef<HTMLDivElement>(null)
@@ -47,7 +35,7 @@ export default function PatienceLevel({ onProgress, onComplete }: LevelProps) {
       dot.style.width = `${maxRadius * 2}px`
       dot.style.height = `${maxRadius * 2}px`
       dot.style.transform = `translate(-50%, -50%) scale(${radius / maxRadius})`
-      reportFill(coverage(radius, width, height))
+      reportFill(centeredCircleCoverage(radius, width, height))
 
       if (elapsed >= FILL_SECONDS) complete()
       else frame = requestAnimationFrame(tick)
