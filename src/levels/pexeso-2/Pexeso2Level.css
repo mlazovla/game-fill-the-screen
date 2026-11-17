@@ -1,0 +1,29 @@
+.pexeso-2__card--active {
+  z-index: 1;
+}
+
+.pexeso-2__front--h {
+  transform: rotateY(180deg);
+}
+
+.pexeso-2__front--v {
+  transform: rotateX(180deg);
+}
+
+.pexeso-2__arrows {
+  width: 62%;
+  height: 62%;
+}
+
+.pexeso-2__axis {
+  fill: #333;
+  transition: fill 120ms ease-out;
+}
+
+.pexeso-2__axis--lit {
+  fill: #aaa;
+}
+
+.pexeso-2__axis--solved {
+  visibility: hidden;
+}

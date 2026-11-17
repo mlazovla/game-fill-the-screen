@@ -5,6 +5,8 @@ import fingerPaint from './finger-paint'
 import jigsaw from './jigsaw'
 import lamp from './lamp'
 import patience from './patience'
+import pexeso1 from './pexeso-1'
+import pexeso2 from './pexeso-2'
 import pinchCircle from './pinch-circle'
 import rainVessel from './rain-vessel'
 import sixStripes from './six-stripes'
@@ -23,4 +25,6 @@ export const levels: LevelDefinition[] = [
   spherePuzzle,
   sizePulse,
   lamp,
+  pexeso1,
+  pexeso2,
 ]

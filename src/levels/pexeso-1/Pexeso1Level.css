@@ -1,0 +1,38 @@
+.pexeso-1 .pexeso__inner {
+  transition: transform 320ms ease-in-out;
+}
+
+.pexeso-1 .pexeso__card--up .pexeso__inner,
+.pexeso-1 .pexeso__card--gone .pexeso__inner {
+  transform: rotateY(180deg);
+}
+
+.pexeso-1__front {
+  transform: rotateY(180deg);
+}
+
+.pexeso-1__dot {
+  position: relative;
+  width: calc(10 * var(--mm));
+  height: calc(10 * var(--mm));
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  touch-action: none;
+}
+
+.pexeso-1__dot::after {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: calc(4 * var(--mm));
+  height: calc(4 * var(--mm));
+  border-radius: 50%;
+  background: #333;
+  transform: translate(-50%, -50%);
+}
+
+.pexeso-1 .pexeso__card--up .pexeso-1__dot {
+  pointer-events: none;
+}

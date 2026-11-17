@@ -91,6 +91,22 @@ src/
                        stůl, podstavec a šňůrka se kreslí přes `lighten`, takže ve světle zmizí a vidět jsou jen ve
                        stínu. Když je stínítko celé mimo obrazovku a lampa svítí, obrazovka během 0,6 s zbělá.
                        Geometrie a stín v lamp.ts, kresba v render.ts
+    pexeso-common/     společné části pexes (není to level): obrázky (PexesoSymbol.tsx), jejich sady a míchání
+                       (symbols.ts), mřížka 3×4 a vzhled karty (pexeso.css)
+    pexeso-1/          12: pexeso 3×4 (6 dvojic: kolečko, hvězdička, křížek, trojúhelník, stromeček, čtyřlístek), karty
+                       vyplňují celý displej. Rub i líc jsou černé s tmavě šedým rámečkem (odsazení 3 mm), na rubu
+                       tmavě šedý puntík – otáčí se jen ťuknutím na něj (plocha pro prst 10 mm). Při otáčení prosvítá
+                       bílé pozadí. Shoda: po 0,5 s obě karty zmizí a zůstane bílá plocha. Neshoda: po 1 s se otočí
+                       zpět, ťuknutí na třetí kartu je zavře hned. Po poslední dvojici level končí.
+                       Balíček v deck.ts
+    pexeso-2/          13: jako pexeso-1, ale každá karta má dva líce – vodorovný a svislý; 24 líců nese 12 obrázků
+                       (navíc sluníčko, kytička, slon, srpek měsíce, šestiúhelník, blesk), každý dvakrát, nikdy oba na jedné
+                       kartě. Na rubu kříž ze 4 tmavě šedých šipek. Karta se otáčí tahem (osa se zamkne po 10 px),
+                       otočení jde za prstem (180° = 0,9 × kratší strana karty), šipky dané osy během tahu svítí
+                       světle šedě. Po puštění se dotočí od 90° nebo při švihnutí (≥ 600 px/s, ≥ 25°), jinak se
+                       vrátí. Shoda se počítá jen podle obrázku (osa nerozhoduje): karty se otočí zpět a zmizí jim
+                       šipky vyřešené osy, tou osou už nejdou otočit. Karta s oběma vyřešenými osami zmizí (bílá).
+                       Neshoda se po 1 s zavře, začátek tahu jiné karty ji zavře hned. Balíček v deck.ts
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 

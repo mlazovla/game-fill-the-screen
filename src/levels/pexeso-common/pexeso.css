@@ -1,0 +1,54 @@
+.pexeso {
+  --mm: 6.3px;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  background: #fff;
+  touch-action: none;
+}
+
+.pexeso__card {
+  position: relative;
+  perspective: 900px;
+  transition:
+    opacity 350ms ease-out,
+    transform 350ms ease-out;
+}
+
+.pexeso__card--gone {
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+}
+
+.pexeso__inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.pexeso__side {
+  position: absolute;
+  inset: -1px;
+  display: grid;
+  place-items: center;
+  background: #000;
+  backface-visibility: hidden;
+}
+
+.pexeso__side::before {
+  content: '';
+  position: absolute;
+  inset: calc(3 * var(--mm));
+  border: 1.5px solid #333;
+  border-radius: calc(1.5 * var(--mm));
+  pointer-events: none;
+}
+
+.pexeso__symbol {
+  width: 55%;
+  height: 55%;
+  color: #fff;
+}
