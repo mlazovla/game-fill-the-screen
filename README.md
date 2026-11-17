@@ -81,6 +81,16 @@ src/
                        Při držení prstu přímo na kolečku hraje tichý sinusový tón, jehož výška sleduje skrytou
                        sinusoidu (±4 půltóny) a se zvětšováním kolečka stoupá (sound.ts). `touchstart` na ploše
                        levelu je zablokovaný, aby dlouhý stisk nespustil haptiku prohlížeče
+    lamp/              11: tmavě šedá lampička na stole ve tmě, ze stínítka visí šňůrka s kuličkou. Krátké zatažení
+                       šňůrky dolů (vibrace) lampičku natrvalo rozsvítí: stínítko zbělá a světlo jde jen otvorem dole.
+                       Stínítko jde chytit prstem (i před rozsvícením) a táhnout; jeho stěny kolidují se žárovkou
+                       (vytlačení po krocích ≤ 0,2 jednotky, aby rychlý tah neprošel skrz), takže z lampičky jde
+                       sundat jen nahoru otevřeným dnem. Po puštění padá (gravitace, hod podle rychlosti tahu,
+                       rotace podle vodorovné rychlosti), po žárovce sklouzne zpět na lampičku, nebo dopadne na
+                       stůl vedle ní. Stín je přesný stín bodové žárovky od tří stěn stínítka (dno je otevřené),
+                       stůl, podstavec a šňůrka se kreslí přes `lighten`, takže ve světle zmizí a vidět jsou jen ve
+                       stínu. Když je stínítko celé mimo obrazovku a lampa svítí, obrazovka během 0,6 s zbělá.
+                       Geometrie a stín v lamp.ts, kresba v render.ts
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 
