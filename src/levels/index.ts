@@ -2,6 +2,7 @@ import type { LevelDefinition } from '../game/types'
 import emberBlow from './ember-blow'
 import endlessSnake from './endless-snake'
 import fingerPaint from './finger-paint'
+import hammer from './hammer'
 import jigsaw from './jigsaw'
 import lamp from './lamp'
 import patience from './patience'
@@ -29,4 +30,5 @@ export const levels: LevelDefinition[] = [
   pexeso1,
   pexeso2,
   pexeso3,
+  hammer,
 ]

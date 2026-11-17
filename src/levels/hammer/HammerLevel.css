@@ -1,0 +1,21 @@
+.hammer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.hammer__debug {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  color: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}

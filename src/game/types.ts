@@ -3,6 +3,7 @@ import type { ComponentType } from 'react'
 export interface LevelProps {
   onProgress: (fillRatio: number) => void
   onComplete: () => void
+  showUi: boolean
 }
 
 export interface LevelDefinition {

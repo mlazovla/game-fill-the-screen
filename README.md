@@ -113,13 +113,30 @@ src/
                        z 8 směrů (i šikmé, záleží na smyslu tahu) odhaluje vlastní líc. Ze 12 obrázků se náhodně
                        vybere 8; obě karty mají stejnou osmici, každá nezávisle náhodně rozmístěnou. Směr se zamkne
                        po 15 px. Obě karty zmizí současně po 8. dvojici
+    hammer/            15: Kladivo – na černé ploše velké tmavě šedé kladívko (hammerShape.ts, podle skici), úderníkem
+                       na stranu podle ruky: z náklonu v klidu (levý bok dolů = pravá ruka, pravý bok dolů = levá;
+                       práh 0,25 g, během švihu a 0,4 s po něm se nemění), přetočí se plynule. Švih (swingMeter.ts):
+                       síla = maximum klouzavého průměru (5 vzorků) velikosti lineárního zrychlení, švih začne nad
+                       10 m/s², skončí pod 5 m/s² (nejdéle 1,5 s). Nápřah se ignoruje: směr úderu = znaménko
+                       nejrychlejší rotace v rovině displeje (`rotationRate.alpha`), do síly se počítají jen vzorky,
+                       kdy se telefon netočí opačně (tolerance 30 °/s). Třídy (síla i délka švihu nad 10 m/s² zároveň,
+                       platí nejvyšší splněná): malý ≥ 140 ms (cinknutí), střední ≥ 3 g a ≥ 200 ms (praskot), velký
+                       ≥ 9 g a ≥ 200 ms (rozbití, krátké tříštění), extrém > 15 g a > 350 ms (rozbití, dlouhé
+                       tříštění); švih pod 140 ms se ignoruje.
+                       Poškození: střední +2, malý +1 jen když už je prasklina, velký/extrém hned rozbití; rozbití
+                       při 4 (cesty: velký, extrém, 2× střední, střední + 2× malý). Pavučina prasklin (crackWeb.ts:
+                       14 paprsků, 7 prohnutých prstenců) světle šedá od středu, roste s poškozením. Rozbití
+                       (shatter.ts): buňky pavučiny se stanou střepy s výřezem obrazovky, padají a odhalí bílou;
+                       když spadnou všechny, level končí. Bez gyroskopu (`devicemotion` nehlásí `rotationRate.alpha`) je
+                       ťuknutí na displej střední úder. Zvuky syntetizované v sound.ts. Se „Zobrazit UI“ je dole
+                       ladicí řádek: síla, třída, délka, poškození, ruka
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 
 ## Přidání levelu
 
 1. Vytvoř složku `src/levels/<nazev-levelu>/` s `index.ts` (definice) a komponentou.
-2. Komponenta dostane `onProgress(ratio)` a `onComplete()` (viz `src/game/types.ts`).
+2. Komponenta dostane `onProgress(ratio)`, `onComplete()` a `showUi` (zapnuté „Zobrazit UI“, pro ladicí výpisy; viz `src/game/types.ts`).
 3. Přidej import do pole v `src/levels/index.ts` na požadované místo.
 
 Hra je o objevování, jak level překonat, proto se v levelech ve výchozím stavu nic neukazuje.

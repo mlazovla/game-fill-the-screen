@@ -17,7 +17,7 @@ export function LevelHost({ level, number, total, showUi, onComplete }: LevelHos
   return (
     <main className="level-host">
       <Suspense fallback={null}>
-        <Level onProgress={setFillRatio} onComplete={onComplete} />
+        <Level onProgress={setFillRatio} onComplete={onComplete} showUi={showUi} />
       </Suspense>
 
       {showUi && (
