@@ -86,7 +86,7 @@ export default function Pexeso1Level({ onProgress, onComplete }: LevelProps) {
       {cards.map((card, i) => (
         <div key={i} className={`pexeso__card pexeso__card--${card.face}`}>
           <div className="pexeso__inner">
-            <div className="pexeso__side">
+            <div className="pexeso__side pexeso__back">
               <button
                 type="button"
                 className="pexeso-1__dot"

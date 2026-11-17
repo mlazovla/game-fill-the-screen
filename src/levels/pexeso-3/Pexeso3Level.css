@@ -1,0 +1,13 @@
+.pexeso-3 .pexeso__card {
+  perspective: 1400px;
+}
+
+.pexeso-3 .pexeso__symbol {
+  width: 40%;
+  height: 40%;
+}
+
+.pexeso-3 .swipe-pexeso__arrows {
+  width: 50%;
+  height: 50%;
+}

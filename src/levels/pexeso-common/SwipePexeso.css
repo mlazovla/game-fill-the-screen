@@ -1,0 +1,21 @@
+.swipe-pexeso__card--active {
+  z-index: 1;
+}
+
+.swipe-pexeso__arrows {
+  width: 62%;
+  height: 62%;
+}
+
+.swipe-pexeso__arrow {
+  fill: #333;
+  transition: fill 120ms ease-out;
+}
+
+.swipe-pexeso__arrow--lit {
+  fill: #aaa;
+}
+
+.swipe-pexeso__arrow--solved {
+  visibility: hidden;
+}

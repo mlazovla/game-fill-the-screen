@@ -38,13 +38,32 @@
   backface-visibility: hidden;
 }
 
-.pexeso__side::before {
+.pexeso__side::before,
+.pexeso__back::after {
   content: '';
   position: absolute;
   inset: calc(3 * var(--mm));
+  pointer-events: none;
+}
+
+.pexeso__side::before {
   border: 1.5px solid #333;
   border-radius: calc(1.5 * var(--mm));
-  pointer-events: none;
+}
+
+.pexeso__back::before {
+  border-radius: 0;
+}
+
+.pexeso__back::after {
+  --scoop-radius: calc(2.5 * var(--mm));
+  --scoop: #000 calc(var(--scoop-radius) - 2px), #333 calc(var(--scoop-radius) - 1.5px) var(--scoop-radius),
+    transparent calc(var(--scoop-radius) + 0.5px);
+  background:
+    radial-gradient(circle at 0 0, var(--scoop)),
+    radial-gradient(circle at 100% 0, var(--scoop)),
+    radial-gradient(circle at 0 100%, var(--scoop)),
+    radial-gradient(circle at 100% 100%, var(--scoop));
 }
 
 .pexeso__symbol {

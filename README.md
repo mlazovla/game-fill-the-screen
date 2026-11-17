@@ -92,21 +92,27 @@ src/
                        stínu. Když je stínítko celé mimo obrazovku a lampa svítí, obrazovka během 0,6 s zbělá.
                        Geometrie a stín v lamp.ts, kresba v render.ts
     pexeso-common/     společné části pexes (není to level): obrázky (PexesoSymbol.tsx), jejich sady a míchání
-                       (symbols.ts), mřížka 3×4 a vzhled karty (pexeso.css)
+                       (symbols.ts), mřížka a vzhled karty (pexeso.css) a SwipePexeso.tsx – pexeso otáčené tahem,
+                       které levely jen konfigurují (mřížka, směry tahu, který směr odhaluje který líc, rozdání).
+                       Tah se zamkne na nejbližší povolený směr, karta se otáčí kolem osy kolmé na tah za prstem
+                       (180° = 0,9 × kratší strana karty, max. 160 px), šipky líce, který tah odhalí, svítí světle
+                       šedě. Po puštění se dotočí od 90° nebo při švihnutí (≥ 600 px/s, ≥ 25°), jinak se vrátí.
+                       Shoda se počítá jen podle obrázku: karty se otočí zpět a zmizí jim šipky vyřešeného líce, tím
+                       směrem už nejdou otočit. Karta se všemi líci vyřešenými zmizí (bílá). Neshoda se po 1 s
+                       zavře, začátek tahu jiné karty ji zavře hned
     pexeso-1/          12: pexeso 3×4 (6 dvojic: kolečko, hvězdička, křížek, trojúhelník, stromeček, čtyřlístek), karty
                        vyplňují celý displej. Rub i líc jsou černé s tmavě šedým rámečkem (odsazení 3 mm), na rubu
                        tmavě šedý puntík – otáčí se jen ťuknutím na něj (plocha pro prst 10 mm). Při otáčení prosvítá
                        bílé pozadí. Shoda: po 0,5 s obě karty zmizí a zůstane bílá plocha. Neshoda: po 1 s se otočí
                        zpět, ťuknutí na třetí kartu je zavře hned. Po poslední dvojici level končí.
                        Balíček v deck.ts
-    pexeso-2/          13: jako pexeso-1, ale každá karta má dva líce – vodorovný a svislý; 24 líců nese 12 obrázků
-                       (navíc sluníčko, kytička, slon, srpek měsíce, šestiúhelník, blesk), každý dvakrát, nikdy oba na jedné
-                       kartě. Na rubu kříž ze 4 tmavě šedých šipek. Karta se otáčí tahem (osa se zamkne po 10 px),
-                       otočení jde za prstem (180° = 0,9 × kratší strana karty), šipky dané osy během tahu svítí
-                       světle šedě. Po puštění se dotočí od 90° nebo při švihnutí (≥ 600 px/s, ≥ 25°), jinak se
-                       vrátí. Shoda se počítá jen podle obrázku (osa nerozhoduje): karty se otočí zpět a zmizí jim
-                       šipky vyřešené osy, tou osou už nejdou otočit. Karta s oběma vyřešenými osami zmizí (bílá).
-                       Neshoda se po 1 s zavře, začátek tahu jiné karty ji zavře hned. Balíček v deck.ts
+    pexeso-2/          13: SwipePexeso 3×4, každá karta má dva líce – vodorovný (tah ← i →) a svislý (↑ i ↓);
+                       24 líců nese 12 obrázků (navíc sluníčko, kytička, slon, srpek měsíce, šestiúhelník, blesk),
+                       každý dvakrát, nikdy oba na jedné kartě. Na rubu kříž ze 4 šipek, směr se zamkne po 10 px
+    pexeso-3/          14: SwipePexeso se 2 kartami (horní a dolní polovina displeje), na rubu 8 šipek a každý
+                       z 8 směrů (i šikmé, záleží na smyslu tahu) odhaluje vlastní líc. Ze 12 obrázků se náhodně
+                       vybere 8; obě karty mají stejnou osmici, každá nezávisle náhodně rozmístěnou. Směr se zamkne
+                       po 15 px. Obě karty zmizí současně po 8. dvojici
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 

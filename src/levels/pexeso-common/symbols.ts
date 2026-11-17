@@ -3,6 +3,8 @@ export const EXTRA_SYMBOLS = ['sun', 'flower', 'elephant', 'moon', 'hexagon', 'b
 
 export type SymbolName = (typeof BASIC_SYMBOLS)[number] | (typeof EXTRA_SYMBOLS)[number]
 
+export const ALL_SYMBOLS: SymbolName[] = [...BASIC_SYMBOLS, ...EXTRA_SYMBOLS]
+
 export function shuffle<T>(items: T[]) {
   for (let i = items.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
