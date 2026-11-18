@@ -26,9 +26,9 @@ export const levels: LevelDefinition[] = [
   patience,
   spherePuzzle,
   sizePulse,
-  lamp,
   pexeso1,
-  pexeso2,
+  lamp,
   pexeso3,
   hammer,
+  pexeso2,
 ]

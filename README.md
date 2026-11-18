@@ -81,7 +81,7 @@ src/
                        Při držení prstu přímo na kolečku hraje tichý sinusový tón, jehož výška sleduje skrytou
                        sinusoidu (±4 půltóny) a se zvětšováním kolečka stoupá (sound.ts). `touchstart` na ploše
                        levelu je zablokovaný, aby dlouhý stisk nespustil haptiku prohlížeče
-    lamp/              11: tmavě šedá lampička na stole ve tmě, ze stínítka visí šňůrka s kuličkou. Krátké zatažení
+    lamp/              12: tmavě šedá lampička na stole ve tmě, ze stínítka visí šňůrka s kuličkou. Krátké zatažení
                        šňůrky dolů (vibrace) lampičku natrvalo rozsvítí: stínítko zbělá a světlo jde jen otvorem dole.
                        Stínítko jde chytit prstem (i před rozsvícením) a táhnout; jeho stěny kolidují se žárovkou
                        (vytlačení po krocích ≤ 0,2 jednotky, aby rychlý tah neprošel skrz), takže z lampičky jde
@@ -100,20 +100,20 @@ src/
                        Shoda se počítá jen podle obrázku: karty se otočí zpět a zmizí jim šipky vyřešeného líce, tím
                        směrem už nejdou otočit. Karta se všemi líci vyřešenými zmizí (bílá). Neshoda se po 1 s
                        zavře, začátek tahu jiné karty ji zavře hned
-    pexeso-1/          12: pexeso 3×4 (6 dvojic: kolečko, hvězdička, křížek, trojúhelník, stromeček, čtyřlístek), karty
+    pexeso-1/          11: pexeso 3×4 (6 dvojic: kolečko, hvězdička, křížek, trojúhelník, stromeček, čtyřlístek), karty
                        vyplňují celý displej. Rub i líc jsou černé s tmavě šedým rámečkem (odsazení 3 mm), na rubu
                        tmavě šedý puntík – otáčí se jen ťuknutím na něj (plocha pro prst 10 mm). Při otáčení prosvítá
                        bílé pozadí. Shoda: po 0,5 s obě karty zmizí a zůstane bílá plocha. Neshoda: po 1 s se otočí
                        zpět, ťuknutí na třetí kartu je zavře hned. Po poslední dvojici level končí.
                        Balíček v deck.ts
-    pexeso-2/          13: SwipePexeso 3×4, každá karta má dva líce – vodorovný (tah ← i →) a svislý (↑ i ↓);
+    pexeso-2/          15: SwipePexeso 3×4, každá karta má dva líce – vodorovný (tah ← i →) a svislý (↑ i ↓);
                        24 líců nese 12 obrázků (navíc sluníčko, kytička, slon, srpek měsíce, šestiúhelník, blesk),
                        každý dvakrát, nikdy oba na jedné kartě. Na rubu kříž ze 4 šipek, směr se zamkne po 10 px
-    pexeso-3/          14: SwipePexeso se 2 kartami (horní a dolní polovina displeje), na rubu 8 šipek a každý
+    pexeso-3/          13: SwipePexeso se 2 kartami (horní a dolní polovina displeje), na rubu 8 šipek a každý
                        z 8 směrů (i šikmé, záleží na smyslu tahu) odhaluje vlastní líc. Ze 12 obrázků se náhodně
                        vybere 8; obě karty mají stejnou osmici, každá nezávisle náhodně rozmístěnou. Směr se zamkne
                        po 15 px. Obě karty zmizí současně po 8. dvojici
-    hammer/            15: Kladivo – na černé ploše velké tmavě šedé kladívko (hammerShape.ts, podle skici), úderníkem
+    hammer/            14: Kladivo – na černé ploše velké tmavě šedé kladívko (hammerShape.ts, podle skici), úderníkem
                        na stranu podle ruky: z náklonu v klidu (levý bok dolů = pravá ruka, pravý bok dolů = levá;
                        práh 0,25 g, během švihu a 0,4 s po něm se nemění), přetočí se plynule. Švih (swingMeter.ts):
                        síla = maximum klouzavého průměru (5 vzorků) velikosti lineárního zrychlení, švih začne nad
