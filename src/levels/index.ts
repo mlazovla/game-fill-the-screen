@@ -5,6 +5,7 @@ import fingerPaint from './finger-paint'
 import hammer from './hammer'
 import jigsaw from './jigsaw'
 import lamp from './lamp'
+import marbleMaze from './marble-maze'
 import patience from './patience'
 import pexeso1 from './pexeso-1'
 import pexeso2 from './pexeso-2'
@@ -31,4 +32,5 @@ export const levels: LevelDefinition[] = [
   pexeso3,
   hammer,
   pexeso2,
+  marbleMaze,
 ]

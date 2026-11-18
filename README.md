@@ -130,6 +130,14 @@ src/
                        když spadnou všechny, level končí. Bez gyroskopu (`devicemotion` nehlásí `rotationRate.alpha`) je
                        ťuknutí na displej střední úder. Zvuky syntetizované v sound.ts. Se „Zobrazit UI“ je dole
                        ladicí řádek: síla, třída, délka, poškození, ruka
+    marble-maze/       16: Kuličkový labyrint – kruhové bludiště (maze.ts, pevné: 5 chodeb, stěny s průchody, příčky,
+                       uprostřed miska ve tvaru půlkruhu), světle šedé stěny, bílá kulička. Ovládání náklonem jako
+                       vodováha (naplocho = klid), fyzika v physics.ts: setrvačnost, valivý odpor (~1° mrtvá zóna),
+                       odraz 0,35, kolize se stěnami rozdělenými na krátké úsečky, posun po krocích ≤ 0,25 jednotky.
+                       Cesta vyžaduje jeden návrat do vnějšího kruhu. Pohled se plynule přiblíží na chodbu, ve které
+                       kulička je (mění se, až je kulička celá za stěnou), při vyjetí ven se oddálí. Když kulička
+                       v misce stojí 0,3 s, přiblíží se, až vyplní celý displej, a level končí. Náraz do stěny
+                       vibruje a cvakne podle síly (sound.ts). Bez senzoru naklání držený prst vůči středu
                        jeden level = jedna složka (definice + komponenta + styly + assety)
 ```
 
